@@ -20,10 +20,17 @@ if (!class_exists('ContactPlugin')) {
   {
     public function __construct() 
     {
+      define('MY_PLUGIN_PATH', plugin_dir_path(__FILE__));
       // any plugin that is installed using Composer which we're going to use inside our own plugin, will be loaded  by adding the `autoload.php` from the vendor folder: 
-      require_once(plugin_dir_path(__FILE__)). '/vendor/autoload.php';
+      require_once(MY_PLUGIN_PATH. '/vendor/autoload.php');
+    }
+
+    public function initialize() {
+      include_once MY_PLUGIN_PATH . 'includes/utilities.php';
+      include_once MY_PLUGIN_PATH . 'includes/options-page.php';
     }
   }
 
-  new ContactPlugin;
+  $contactPlugin = new ContactPlugin;
+  $contactPlugin -> initialize();
 }
